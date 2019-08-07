@@ -82,6 +82,7 @@ if gevent:
     import gevent.threadpool
     import gevent.event
 
+
     class GeventThreadPoolExecutor(gevent.threadpool.ThreadPoolExecutor):
         @staticmethod
         def _wrap_watch(fn):
@@ -439,7 +440,7 @@ class Executor(object):
 
     @classmethod
     def handle(cls, op, results, mock=False):
-        method_name, mapper = ('execute', cls._op_runners) if not mock else\
+        method_name, mapper = ('execute', cls._op_runners) if not mock else \
             ('estimate_size', cls._op_size_estimators)
         try:
             runner = mapper[type(op)]
@@ -637,7 +638,7 @@ def ignore(*_):
 
 
 Executor._op_runners[Fetch] = ignore
-Executor._op_runners[ShuffleProxy] =ignore
+Executor._op_runners[ShuffleProxy] = ignore
 
 
 def register(op, handler, size_estimator=None):
@@ -649,4 +650,5 @@ def register(op, handler, size_estimator=None):
 # import to register operands
 from . import tensor
 from . import dataframe
+
 del tensor, dataframe
